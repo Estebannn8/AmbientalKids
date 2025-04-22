@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "168253837672",
+    "project_id": "ambientalkids-85144",
+    "storage_bucket": "ambientalkids-85144.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:168253837672:android:9547a605844771c04b46dd",
+        "android_client_info": {
+          "package_name": "com.universidad.ambientalkids"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "168253837672-v0qeaf0rk0udoc2v8ha6ehjlr5jtaush.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.universidad.ambientalkids",
+            "certificate_hash": "9b6e63506236a55fab2b2ba6d161b7c3960258e7"
+          }
+        },
+        {
+          "client_id": "168253837672-c7i0h05nat7eogff5je1v2d2bm9b38be.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBa_vN86qi6LJ92wNEz-JR7nPo1Kbk8UL8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "168253837672-c7i0h05nat7eogff5je1v2d2bm9b38be.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
