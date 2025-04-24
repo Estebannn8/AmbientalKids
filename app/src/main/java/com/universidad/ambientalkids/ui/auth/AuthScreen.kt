@@ -428,10 +428,10 @@ fun RegisterForm(
                 text = {
                     Text(
                         buildString {
-                            append("Bienvenido a nuestra app de educación financiera.\n\n")
+                            append("Bienvenido a nuestra app de educación ambiental.\n\n")
                             append("Al utilizar esta aplicación, aceptas los siguientes términos:\n\n")
                             append("1. Uso Responsable:\n")
-                            append("Esta aplicación está diseñada para enseñar finanzas personales de forma lúdica y educativa. No debe usarse como asesoramiento financiero profesional.\n\n")
+                            append("Esta aplicación está diseñada para la educación y conciencia ambiental de forma lúdica. No debe usarse como asesoramiento ambiental profesional.\n\n")
                             append("2. Edad Mínima:\n")
                             append("Esta app está dirigida a niños y jóvenes. Si no tienes una cuenta de correo electrónico propia, puedes usar la de uno de tus padres o tutores con su permiso y bajo su supervisión. El uso de la aplicación en estos casos es responsabilidad del adulto responsable.\n\n")
                             append("3. Cuenta de Usuario:\n")

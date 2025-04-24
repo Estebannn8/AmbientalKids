@@ -11,9 +11,11 @@ import androidx.navigation.navArgument
 import com.universidad.ambientalkids.ui.HomeScreen1
 import com.universidad.ambientalkids.ui.HomeScreen2
 import com.universidad.ambientalkids.ui.HomeScreen3
-import com.universidad.ambientalkids.ui.landing.LandingScreen1
-import com.universidad.ambientalkids.ui.landing.LandingScreen2
-import com.universidad.ambientalkids.ui.landing.LandingScreen3
+import com.universidad.ambientalkids.ui.Leccion1Bien
+import com.universidad.ambientalkids.ui.Leccion1Mal
+import com.universidad.ambientalkids.ui.Leccion1Reciclaje
+import com.universidad.ambientalkids.ui.Leccion1bReciclaje
+import com.universidad.ambientalkids.ui.Leccion1cReciclaje
 import com.universidad.ambientalkids.ui.MainScreen
 import com.universidad.ambientalkids.ui.SplashScreen
 import com.universidad.ambientalkids.ui.auth.AuthScreen
@@ -23,6 +25,9 @@ import com.universidad.ambientalkids.ui.avatar.AvatarDropScreen
 import com.universidad.ambientalkids.ui.avatar.AvatarFoxScreen
 import com.universidad.ambientalkids.ui.avatar.AvatarFrogScreen
 import com.universidad.ambientalkids.ui.avatar.AvatarPorcupineScreen
+import com.universidad.ambientalkids.ui.landing.LandingScreen1
+import com.universidad.ambientalkids.ui.landing.LandingScreen2
+import com.universidad.ambientalkids.ui.landing.LandingScreen3
 import com.universidad.ambientalkids.viewmodel.AuthViewModel
 
 @Composable
@@ -106,6 +111,26 @@ fun AppNavigation(modifier: Modifier = Modifier) {
 
         composable(AppScreens.HomeScreen3.route) {
             HomeScreen3(navController)
+        }
+
+        composable(AppScreens.Leccion1Reciclaje.route) {
+            Leccion1Reciclaje(navController)
+        }
+
+        composable(AppScreens.Leccion1bReciclaje.route) {
+            Leccion1bReciclaje(navController)
+        }
+
+        composable(AppScreens.Leccion1cReciclaje.route) {
+            Leccion1cReciclaje(navController)
+        }
+
+        composable(AppScreens.Leccion1Mal.route) {
+            Leccion1Mal(navController)
+        }
+
+        composable(AppScreens.Leccion1Bien.route) {
+            Leccion1Bien(navController)
         }
     }
 }

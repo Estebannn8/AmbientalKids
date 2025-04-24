@@ -18,5 +18,10 @@ sealed class  AppScreens(val route: String){
     object HomeScreen1: AppScreens(route = "home_Screen_1")
     object HomeScreen2: AppScreens(route = "home_Screen_2")
     object HomeScreen3: AppScreens(route = "home_Screen_3")
+    object Leccion1Reciclaje: AppScreens(route = "leccion_1_reciclaje")
+    object Leccion1bReciclaje: AppScreens(route = "leccion_1b_reciclaje")
+    object Leccion1cReciclaje: AppScreens(route = "leccion_1c_reciclaje")
+    object Leccion1Mal: AppScreens(route = "leccion_1_mal")
+    object Leccion1Bien: AppScreens(route = "leccion_1_bien")
 }
 

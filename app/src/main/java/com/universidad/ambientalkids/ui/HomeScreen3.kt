@@ -65,14 +65,14 @@ fun HomeScreen3(navController: NavController){
             )
 
 
-            // Imagen ic_plant encima de todo, centrada
+            // Imagen
             Image(
-                painter = painterResource(id = R.drawable.ic_coin),
+                painter = painterResource(id = R.drawable.ic_gota),
                 contentDescription = "Planta decorativa",
                 modifier = Modifier
                     .align(Alignment.Center)
                     .zIndex(1f)
-                    .offset(y = (-220).dp, x = (-20).dp)
+                    .offset(y = (-220).dp, x = (0).dp)
                     .size(100.dp), // Ajusta tamaño si es necesario
                 contentScale = ContentScale.Fit
             )
@@ -98,7 +98,7 @@ fun HomeScreen3(navController: NavController){
                     painter = painterResource(id = R.drawable.ic_home3),
                     contentDescription = "Ilustración central",
                     modifier = Modifier.size(400.dp)
-                        .offset(y = 0.dp, x = (-20).dp)
+                        .offset(y = 0.dp, x = (0).dp)
                         .scale(home1Scale)
                         .clickable(
                             interactionSource = home1InteractionSource,
@@ -108,7 +108,7 @@ fun HomeScreen3(navController: NavController){
                             // CoroutineScope para manejar el retardo
                             CoroutineScope(Dispatchers.Main).launch {
                                 delay(300) // Espera 300ms para que se complete la animación
-                                // Evento click
+                                navController.navigate(AppScreens.HomeScreen1.route)
                                 home1Clicked = false // Resetear el estado después de navegar
                             }
                         },

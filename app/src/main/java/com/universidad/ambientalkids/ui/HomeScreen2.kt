@@ -108,7 +108,7 @@ fun HomeScreen2(navController: NavController){
                             // CoroutineScope para manejar el retardo
                             CoroutineScope(Dispatchers.Main).launch {
                                 delay(300) // Espera 300ms para que se complete la animación
-                                // Evento click
+                                navController.navigate(AppScreens.Leccion1Reciclaje.route)
                                 home1Clicked = false // Resetear el estado después de navegar
                             }
                         },
