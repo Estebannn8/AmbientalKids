@@ -7,21 +7,15 @@ sealed class  AppScreens(val route: String){
         fun createRoute(startInLogin: Boolean) = "auth_screen/$startInLogin"
     }
     object RecoveryScreen: AppScreens(route = "recovery_screen")
-    object AvatarDropScreen: AppScreens(route = "avatar_drop_screen")
-    object AvatarFoxScreen: AppScreens(route = "avatar_fox_screen")
-    object AvatarFrogScreen: AppScreens(route = "avatar_frog_screen")
-    object AvatarPorcupineScreen: AppScreens(route = "avatar_porcupine_screen")
-    object AvatarBirdScreen: AppScreens(route = "avatar_bird_screen")
-    object LandingScreen1: AppScreens(route = "landing_Screen_1")
-    object LandingScreen2: AppScreens(route = "landing_Screen_2")
-    object LandingScreen3: AppScreens(route = "landing_Screen_3")
-    object HomeScreen1: AppScreens(route = "home_Screen_1")
-    object HomeScreen2: AppScreens(route = "home_Screen_2")
-    object HomeScreen3: AppScreens(route = "home_Screen_3")
-    object Leccion1Reciclaje: AppScreens(route = "leccion_1_reciclaje")
-    object Leccion1bReciclaje: AppScreens(route = "leccion_1b_reciclaje")
-    object Leccion1cReciclaje: AppScreens(route = "leccion_1c_reciclaje")
-    object Leccion1Mal: AppScreens(route = "leccion_1_mal")
-    object Leccion1Bien: AppScreens(route = "leccion_1_bien")
+    object HomeScreen: AppScreens(route = "home_screen")
+    object ProfileScreen: AppScreens(route = "profile_screen")
+    object TrophyScreen: AppScreens(route = "trophy_screen")
+    object ProgressScreen: AppScreens(route = "progress_screen")
+    object StoreScreen: AppScreens(route = "store_screen")
+
+    object LessonScreen: AppScreens("lesson_screen/{category}") {
+        fun createRoute(category: String) = "lesson_screen/$category"
+    }
 }
+
 

@@ -8,27 +8,17 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.universidad.ambientalkids.ui.HomeScreen1
-import com.universidad.ambientalkids.ui.HomeScreen2
-import com.universidad.ambientalkids.ui.HomeScreen3
-import com.universidad.ambientalkids.ui.Leccion1Bien
-import com.universidad.ambientalkids.ui.Leccion1Mal
-import com.universidad.ambientalkids.ui.Leccion1Reciclaje
-import com.universidad.ambientalkids.ui.Leccion1bReciclaje
-import com.universidad.ambientalkids.ui.Leccion1cReciclaje
 import com.universidad.ambientalkids.ui.MainScreen
 import com.universidad.ambientalkids.ui.SplashScreen
 import com.universidad.ambientalkids.ui.auth.AuthScreen
 import com.universidad.ambientalkids.ui.auth.RecoveryScreen
-import com.universidad.ambientalkids.ui.avatar.AvatarBirdScreen
-import com.universidad.ambientalkids.ui.avatar.AvatarDropScreen
-import com.universidad.ambientalkids.ui.avatar.AvatarFoxScreen
-import com.universidad.ambientalkids.ui.avatar.AvatarFrogScreen
-import com.universidad.ambientalkids.ui.avatar.AvatarPorcupineScreen
-import com.universidad.ambientalkids.ui.landing.LandingScreen1
-import com.universidad.ambientalkids.ui.landing.LandingScreen2
-import com.universidad.ambientalkids.ui.landing.LandingScreen3
 import com.universidad.ambientalkids.viewmodel.AuthViewModel
+import com.universidad.finankids.ui.HomeScreen
+import com.universidad.finankids.ui.ProfileScreen
+import com.universidad.finankids.ui.StoreScreen
+import com.universidad.finankids.ui.lesson.LessonScreen
+import com.universidad.finankids.viewmodel.LessonsViewModel
+import com.universidad.finankids.viewmodel.UserViewModel
 
 @Composable
 fun AppNavigation(modifier: Modifier = Modifier) {
@@ -36,6 +26,8 @@ fun AppNavigation(modifier: Modifier = Modifier) {
 
     // Crear los ViewModels aquí para que sean compartidos
     val authViewModel: AuthViewModel = viewModel()
+    val userViewModel: UserViewModel = viewModel()
+    val lessonsViewModel: LessonsViewModel = viewModel()
 
     NavHost(
         navController = navController,
@@ -45,7 +37,8 @@ fun AppNavigation(modifier: Modifier = Modifier) {
         composable(AppScreens.SplashScreen.route) {
             SplashScreen(
                 navController = navController,
-                authViewModel = authViewModel
+                authViewModel = authViewModel,
+                userViewModel = userViewModel
             )
         }
 
@@ -61,7 +54,8 @@ fun AppNavigation(modifier: Modifier = Modifier) {
             AuthScreen(
                 startInLogin,
                 navController = navController,
-                authViewModel = authViewModel
+                authViewModel = authViewModel,
+                userViewModel = userViewModel
             )
         }
 
@@ -69,68 +63,35 @@ fun AppNavigation(modifier: Modifier = Modifier) {
             RecoveryScreen(navController)
         }
 
-        composable(AppScreens.AvatarDropScreen.route) {
-            AvatarDropScreen(navController)
+        composable(AppScreens.HomeScreen.route) {
+            HomeScreen(
+                navController = navController,
+                userViewModel = userViewModel
+            )
         }
 
-        composable(AppScreens.AvatarFoxScreen.route) {
-            AvatarFoxScreen(navController)
+        composable(AppScreens.ProfileScreen.route) {
+            ProfileScreen(
+                navController
+            )
         }
 
-        composable(AppScreens.AvatarFrogScreen.route) {
-            AvatarFrogScreen(navController)
+        composable(AppScreens.StoreScreen.route) {
+            StoreScreen(navController)
         }
 
-        composable(AppScreens.AvatarPorcupineScreen.route) {
-            AvatarPorcupineScreen(navController)
+        composable(
+            route = AppScreens.LessonScreen.route,
+            arguments = listOf(navArgument("category") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val category = backStackEntry.arguments?.getString("category") ?: "ahorro"
+            LessonScreen(
+                category = category,
+                userViewModel = userViewModel,
+                lessonsViewModel = lessonsViewModel,
+                navController = navController
+            )
         }
 
-        composable(AppScreens.AvatarBirdScreen.route) {
-            AvatarBirdScreen(navController)
-        }
-
-        composable(AppScreens.LandingScreen1.route) {
-            LandingScreen1(navController)
-        }
-
-        composable(AppScreens.LandingScreen2.route) {
-            LandingScreen2(navController)
-        }
-
-        composable(AppScreens.LandingScreen3.route) {
-            LandingScreen3(navController)
-        }
-
-        composable(AppScreens.HomeScreen1.route) {
-            HomeScreen1(navController)
-        }
-
-        composable(AppScreens.HomeScreen2.route) {
-            HomeScreen2(navController)
-        }
-
-        composable(AppScreens.HomeScreen3.route) {
-            HomeScreen3(navController)
-        }
-
-        composable(AppScreens.Leccion1Reciclaje.route) {
-            Leccion1Reciclaje(navController)
-        }
-
-        composable(AppScreens.Leccion1bReciclaje.route) {
-            Leccion1bReciclaje(navController)
-        }
-
-        composable(AppScreens.Leccion1cReciclaje.route) {
-            Leccion1cReciclaje(navController)
-        }
-
-        composable(AppScreens.Leccion1Mal.route) {
-            Leccion1Mal(navController)
-        }
-
-        composable(AppScreens.Leccion1Bien.route) {
-            Leccion1Bien(navController)
-        }
     }
 }

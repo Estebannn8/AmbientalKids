@@ -3,6 +3,7 @@ package com.universidad.ambientalkids.ui.auth
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,7 +22,6 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -45,6 +45,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -60,24 +61,31 @@ import com.universidad.ambientalkids.state.AuthState
 import com.universidad.ambientalkids.ui.components.Background
 import com.universidad.ambientalkids.ui.components.CustomButton
 import com.universidad.ambientalkids.ui.components.CustomTextField
+import com.universidad.ambientalkids.ui.components.LoadingOverlay
 import com.universidad.ambientalkids.ui.theme.AppTypography
 import com.universidad.ambientalkids.viewmodel.AuthViewModel
+import com.universidad.finankids.events.UserEvent
+import com.universidad.finankids.viewmodel.UserViewModel
 import kotlinx.coroutines.launch
 
 @Composable
 fun AuthScreen(
     startInLogin: Boolean,
     navController: NavController,
-    authViewModel: AuthViewModel
+    authViewModel: AuthViewModel,
+    userViewModel: UserViewModel
 ) {
 
     // Estados observables
     val authState by authViewModel.state.collectAsState()
+    val userState by userViewModel.state.collectAsState()
 
     // Estados locales
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
+    val hasNavigated = remember { mutableStateOf(false) }
+    val focusManager = LocalFocusManager.current
 
     // Establecer el estado inicial basado en startInLogin
     LaunchedEffect(startInLogin) {
@@ -89,10 +97,23 @@ fun AuthScreen(
         }
     }
 
-    // Navegar al Home cuando la autenticación sea exitosa
+    // Cargar datos del usuario tras login o registro exitoso
     LaunchedEffect(authState.isSuccess) {
-        if (authState.isSuccess) {
-            navController.navigate(AppScreens.AvatarDropScreen.route) {
+        if (authState.isSuccess && !hasNavigated.value) {
+            authViewModel.getCurrentUserId()?.let { uid ->
+                userViewModel.sendEvent(UserEvent.LoadUser(uid))
+            }
+        }
+    }
+
+    // Navegar al Home
+    LaunchedEffect(userState.userData.uid, userState.isLoading) {
+        if (!hasNavigated.value &&
+            userState.userData.uid.isNotEmpty() &&
+            !userState.isLoading
+        ) {
+            hasNavigated.value = true
+            navController.navigate(AppScreens.HomeScreen.route) {
                 popUpTo(0) { inclusive = true }
                 launchSingleTop = true
             }
@@ -109,15 +130,13 @@ fun AuthScreen(
         }
     }
 
-    // Mostrar loading si es necesario
-    if (authState.isLoading) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color.Black.copy(alpha = 0.5f)),
-            contentAlignment = Alignment.Center
-        ) {
-            CircularProgressIndicator(color = Color.White)
+    // Mostrar errores de carga de usuario
+    LaunchedEffect(userState.errorMessage) {
+        userState.errorMessage?.let { error ->
+            coroutineScope.launch {
+                snackbarHostState.showSnackbar(error)
+                userViewModel.clearError()
+            }
         }
     }
 
@@ -147,6 +166,13 @@ fun AuthScreen(
                         .fillMaxSize()
                         .background(Color.White, RoundedCornerShape(12.dp)) // Fondo blanco con bordes redondeados
                         .padding(24.dp) // Margen interior
+                        .clickable(
+                            // Evita el ripple cuando tocas en blanco
+                            indication = null,
+                            interactionSource = remember { MutableInteractionSource() }
+                        ) {
+                            focusManager.clearFocus()
+                        }
                 ) {
                     val scrollState = rememberScrollState()
 
@@ -189,6 +215,12 @@ fun AuthScreen(
                     }
                 }
             }
+
+            // Mostrar loading si es necesario
+            if (authState.isLoading || userState.isLoading) {
+                LoadingOverlay()
+            }
+
         }
     }
 }

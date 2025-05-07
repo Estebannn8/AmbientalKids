@@ -1,6 +1,7 @@
 package com.universidad.ambientalkids.viewmodel
 
 import android.content.Context
+import android.util.Log
 import androidx.credentials.Credential
 import androidx.credentials.CredentialManager
 import androidx.credentials.CustomCredential
@@ -22,7 +23,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.universidad.ambientalkids.R
 import com.universidad.ambientalkids.events.AuthEvent
 import com.universidad.ambientalkids.state.AuthState
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -47,7 +47,7 @@ class AuthViewModel : ViewModel() {
                 _state.value = _state.value.copy(password = event.password)
             }
             is AuthEvent.UsernameChanged -> {
-                _state.value = _state.value.copy(username = event.username)
+                _state.value = _state.value.copy(username = event.username.take(13))
             }
             is AuthEvent.TermsAcceptedChanged -> {
                 _state.value = _state.value.copy(termsAccepted = event.accepted)
@@ -87,17 +87,6 @@ class AuthViewModel : ViewModel() {
             }
         }
     }
-
-    fun checkAuthState(onComplete: (Boolean) -> Unit) {
-        viewModelScope.launch {
-            _state.value = _state.value.copy(isAuthChecking = true)
-            delay(1000) // Pequeño delay para evitar flickering en el splash
-            val isAuthenticated = auth.currentUser != null
-            _state.value = _state.value.copy(isAuthChecking = false)
-            onComplete(isAuthenticated)
-        }
-    }
-
 
     fun signInWithGoogle(context: Context) {
         viewModelScope.launch {
@@ -205,100 +194,115 @@ class AuthViewModel : ViewModel() {
     }
 
     private fun register() {
+        Log.d("AuthViewModel", "Starting registration")
+
         val currentEmail = _state.value.email.trim()
         val currentPassword = _state.value.password
         val currentUsername = _state.value.username.trim()
 
+        // Validaciones iniciales
         if (currentEmail.isEmpty() || currentPassword.isEmpty() || currentUsername.isEmpty()) {
             _state.value = _state.value.copy(
-                errorMessage = "Por favor completa todos los campos."
+                errorMessage = "Por favor completa todos los campos.",
+                isLoading = false
+            )
+            return
+        }
+
+        // Validación de longitud del nickname
+        if (!isValidUsername(currentUsername)) {
+            _state.value = _state.value.copy(
+                errorMessage = "El nombre de usuario no puede tener más de 13 caracteres.",
+                isLoading = false
             )
             return
         }
 
         if (!_state.value.termsAccepted) {
             _state.value = _state.value.copy(
-                errorMessage = "Debes aceptar los términos y condiciones."
+                errorMessage = "Debes aceptar los términos y condiciones.",
+                isLoading = false
             )
             return
         }
 
         if (!isValidPassword(currentPassword)) {
             _state.value = _state.value.copy(
-                errorMessage = "La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial."
+                errorMessage = "La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial.",
+                isLoading = false
             )
             return
         }
 
         if (!isValidEmail(currentEmail)) {
             _state.value = _state.value.copy(
-                errorMessage = "Por favor ingresa un correo electrónico válido."
+                errorMessage = "Por favor ingresa un correo electrónico válido.",
+                isLoading = false
             )
             return
         }
 
         viewModelScope.launch {
             _state.value = _state.value.copy(isLoading = true)
+            Log.d("AuthViewModel", "isLoading set to true")
 
             try {
-                // Validar si el nickname ya existe
-                val result = firestore.collection("usuarios")
+                // 1. Verificar si el nickname ya existe
+                val nicknameQuery = firestore.collection("usuarios")
                     .whereEqualTo("nickname", currentUsername)
                     .limit(1)
                     .get()
                     .await()
 
-                if (!result.isEmpty) {
+                if (!nicknameQuery.isEmpty) {
                     _state.value = _state.value.copy(
                         isLoading = false,
-                        errorMessage = "El nombre de usuario ya está en uso."
+                        errorMessage = "El nombre de usuario ya está en uso. Por favor elige otro."
                     )
                     return@launch
                 }
 
-                // Crear usuario si el nickname no existe
+                // 2. Crear usuario en Firebase Auth
                 auth.createUserWithEmailAndPassword(currentEmail, currentPassword)
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
+                    .addOnCompleteListener { authTask ->
+                        if (authTask.isSuccessful) {
                             val user = auth.currentUser
                             user?.updateProfile(userProfileChangeRequest {
                                 displayName = currentUsername
-                            })
-
-                            val userId = user?.uid ?: run {
-                                _state.value = _state.value.copy(
-                                    isLoading = false,
-                                    errorMessage = "Error al obtener ID de usuario"
-                                )
-                                return@addOnCompleteListener
+                            })?.addOnCompleteListener { profileTask ->
+                                if (profileTask.isSuccessful) {
+                                    saveUserDataToFirestore(
+                                        userId = user.uid,
+                                        username = currentUsername,
+                                        email = currentEmail
+                                    )
+                                } else {
+                                    _state.value = _state.value.copy(
+                                        isLoading = false,
+                                        errorMessage = "Error al actualizar el perfil: ${profileTask.exception?.localizedMessage ?: ""}"
+                                    )
+                                }
+                            }
+                        } else {
+                            val error = authTask.exception
+                            val message = when (error) {
+                                is com.google.firebase.auth.FirebaseAuthUserCollisionException -> {
+                                    "Ya existe una cuenta con este correo electrónico."
+                                }
+                                is FirebaseAuthWeakPasswordException -> {
+                                    "La contraseña es demasiado débil. Asegúrate de incluir mayúsculas, minúsculas, números y símbolos."
+                                }
+                                is FirebaseAuthInvalidCredentialsException -> {
+                                    "El correo electrónico no tiene un formato válido."
+                                }
+                                else -> {
+                                    "Error al registrar usuario: ${error?.localizedMessage ?: "Error desconocido."}"
+                                }
                             }
 
-                            val userData = hashMapOf(
-                                "uid" to userId,
-                                "nickname" to currentUsername,
-                                "correo" to currentEmail
-                            )
-
-                            firestore.collection("usuarios")
-                                .document(userId)
-                                .set(userData)
-                                .addOnSuccessListener {
-                                    _state.value = _state.value.copy(
-                                        isLoading = false,
-                                        isSuccess = true
-                                    )
-                                }
-                                .addOnFailureListener { e ->
-                                    _state.value = _state.value.copy(
-                                        isLoading = false,
-                                        errorMessage = "Error al guardar usuario: ${e.message}"
-                                    )
-                                }
-
-                        } else {
                             _state.value = _state.value.copy(
                                 isLoading = false,
-                                errorMessage = task.exception?.localizedMessage ?: "Error al registrar usuario."
+                                errorMessage = message
                             )
                         }
                     }
@@ -306,10 +310,56 @@ class AuthViewModel : ViewModel() {
             } catch (e: Exception) {
                 _state.value = _state.value.copy(
                     isLoading = false,
-                    errorMessage = "Error al verificar nombre de usuario: ${e.message}"
+                    errorMessage = "Error en el registro: ${e.message}"
                 )
             }
         }
+    }
+
+    private fun saveUserDataToFirestore(
+        userId: String,
+        username: String,
+        email: String
+    ) {
+        val userData = hashMapOf(
+            "uid" to userId,
+            "nickname" to username,
+            "correo" to email,
+            "nivel" to 1,
+            "exp" to 0,
+            "logros" to emptyList<String>(),
+            "insignias" to emptyList<String>(),
+            "progresoCategorias" to mapOf(
+                "agua" to 0,
+                "biologia" to 0,
+                "tierra" to 0,
+                "reciclaje" to 0
+            ),
+            "leccionesCompletadas" to emptyMap<String, Any>(),
+            "racha" to mapOf(
+                "actual" to 0,
+                "maxima" to 0,
+                "ultimoRegistro" to null
+            )
+        )
+
+        firestore.collection("usuarios")
+            .document(userId)
+            .set(userData)
+            .addOnSuccessListener {
+                _state.value = _state.value.copy(
+                    isLoading = false,
+                    isSuccess = true
+                )
+            }
+            .addOnFailureListener { e ->
+                _state.value = _state.value.copy(
+                    isLoading = false,
+                    errorMessage = "Error al guardar datos del usuario: ${e.message}"
+                )
+                // Opcional: eliminar el usuario creado en Auth si falla Firestore
+                auth.currentUser?.delete()
+            }
     }
 
     private fun handleGoogleSignInResult(credential: Credential) {
@@ -328,37 +378,7 @@ class AuthViewModel : ViewModel() {
                 auth.signInWithCredential(firebaseCredential)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            val isNewUser = task.result?.additionalUserInfo?.isNewUser ?: false
-                            val user = auth.currentUser
-
-                            if (isNewUser && user != null) {
-                                val userData = hashMapOf(
-                                    "uid" to user.uid,
-                                    "nickname" to (user.displayName ?: "Usuario"),
-                                    "correo" to (user.email ?: "")
-                                )
-
-                                firestore.collection("usuarios")
-                                    .document(user.uid)
-                                    .set(userData)
-                                    .addOnSuccessListener {
-                                        _state.value = _state.value.copy(
-                                            isLoading = false,
-                                            isSuccess = true
-                                        )
-                                    }
-                                    .addOnFailureListener { e ->
-                                        _state.value = _state.value.copy(
-                                            isLoading = false,
-                                            errorMessage = "Error al guardar usuario: ${e.message}"
-                                        )
-                                    }
-                            } else {
-                                _state.value = _state.value.copy(
-                                    isLoading = false,
-                                    isSuccess = true
-                                )
-                            }
+                            handleNewGoogleUser(task.result?.additionalUserInfo?.isNewUser ?: false)
                         } else {
                             _state.value = _state.value.copy(
                                 isLoading = false,
@@ -378,6 +398,142 @@ class AuthViewModel : ViewModel() {
                 errorMessage = "Tipo de credencial no soportado"
             )
         }
+    }
+
+    private fun handleNewGoogleUser(isNewUser: Boolean) {
+        if (isNewUser) {
+            saveNewGoogleUser()
+        } else {
+            _state.value = _state.value.copy(
+                isLoading = false,
+                isSuccess = true
+            )
+        }
+    }
+
+    private fun saveNewGoogleUser() {
+        val user = auth.currentUser ?: run {
+            _state.value = _state.value.copy(
+                isLoading = false,
+                errorMessage = "Usuario no encontrado"
+            )
+            return
+        }
+
+        viewModelScope.launch {
+            try {
+                val uniqueNickname = generateUniqueNickname()
+
+                val userData = hashMapOf(
+                    "uid" to user.uid,
+                    "nickname" to uniqueNickname,
+                    "correo" to (user.email ?: ""),
+                    "nivel" to 1,
+                    "exp" to 0,
+                    "logros" to emptyList<String>(),
+                    "insignias" to emptyList<String>(),
+                    "progresoCategorias" to mapOf(
+                        "agua" to 0,
+                        "biologia" to 0,
+                        "tierra" to 0,
+                        "reciclaje" to 0
+                    ),
+                    "leccionesCompletadas" to emptyMap<String, Any>(),
+                    "racha" to mapOf(
+                        "actual" to 0,
+                        "maxima" to 0,
+                        "ultimoRegistro" to null
+                    )
+                )
+
+                firestore.collection("usuarios")
+                    .document(user.uid)
+                    .set(userData)
+                    .addOnSuccessListener {
+                        _state.value = _state.value.copy(
+                            isLoading = false,
+                            isSuccess = true
+                        )
+                    }
+                    .addOnFailureListener { e ->
+                        _state.value = _state.value.copy(
+                            isLoading = false,
+                            errorMessage = "Error al guardar usuario: ${e.message}"
+                        )
+                    }
+
+            } catch (e: Exception) {
+                _state.value = _state.value.copy(
+                    isLoading = false,
+                    errorMessage = "Error al generar nickname: ${e.message}"
+                )
+            }
+        }
+    }
+
+    private suspend fun generateUniqueNickname(): String {
+        var nickname: String
+        var exists: Boolean
+        val usuariosRef = firestore.collection("usuarios")
+
+        do {
+            nickname = generateRandomEnvironmentalNickname()
+            exists = try {
+                val query = usuariosRef
+                    .whereEqualTo("nickname", nickname)
+                    .limit(1)
+
+                !query.get().await().isEmpty
+            } catch (e: Exception) {
+                Log.e("FirestoreError", "Error al verificar nickname: ${e.message}")
+                throw Exception("No se pudo verificar el nickname. Intenta nuevamente.")
+            }
+        } while (exists)
+
+        return nickname
+    }
+
+    private fun generateRandomEnvironmentalNickname(): String {
+        val environmentalPrefixes = listOf(
+            "Eco", "Green", "Bio", "Nature", "Earth", "Pure",
+            "Clean", "Solar", "Eco", "Leaf", "Rain", "Wind",
+            "Ocean", "Forest", "River", "Recycle"
+        )
+
+        val environmentalSuffixes = listOf(
+            "Hero", "Kid", "Guard", "Saver", "Friend", "Champ",
+            "Love", "Life", "Star", "Power", "Walk", "Shine",
+            "Bloom", "Spark", "Grow", "Pure"
+        )
+
+        val randomPrefix = environmentalPrefixes.random()
+        val randomSuffix = environmentalSuffixes.random()
+
+        // Calculamos cuántos caracteres tenemos disponibles para el número
+        val totalLength = randomPrefix.length + randomSuffix.length
+        val remainingChars = 13 - totalLength
+
+        return if (remainingChars >= 3) {
+            // Si tenemos espacio para al menos 3 dígitos
+            val randomNumber = (100..999).random()
+            "$randomPrefix$randomSuffix$randomNumber"
+        } else if (remainingChars == 2) {
+            // Si solo tenemos espacio para 2 dígitos
+            val randomNumber = (10..99).random()
+            "$randomPrefix$randomSuffix$randomNumber"
+        } else if (remainingChars == 1) {
+            // Si solo tenemos espacio para 1 dígito
+            val randomNumber = (0..9).random()
+            "$randomPrefix$randomSuffix$randomNumber"
+        } else {
+            // Si la combinación de prefijo + sufijo ya tiene 13+ caracteres
+            // Tomamos solo el prefijo + sufijo y lo truncamos a 13 caracteres
+            (randomPrefix + randomSuffix).take(13)
+        }
+    }
+
+    private fun isValidUsername(username: String): Boolean {
+        return username.length <= 13 && username.isNotBlank()
     }
 
     private fun sendPasswordResetEmail(email: String) {
