@@ -24,10 +24,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
@@ -192,7 +194,7 @@ fun LessonContentScreen(
             painter = painterResource(temaVisual.background),
             contentDescription = "Background",
             contentScale = ContentScale.FillBounds,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize().alpha(0.7f)
         )
 
         when {
@@ -382,13 +384,15 @@ fun LessonHeader(
             Box(
                 modifier = Modifier
                     .fillMaxWidth(progress)
-                    .height(17.dp)
-                    .padding(end = 12.2.dp)
+                    .height(19.dp)
+                    .padding(end = 11.dp)
                     .zIndex(3f)
-                    .offset(y = 3.73.dp, x = 5.8.dp)
+                    .offset(y = 3.9.dp, x = 5.2.dp)
                     .clip(RoundedCornerShape(
                         topEnd = 8.dp,
-                        bottomEnd = 8.dp
+                        bottomEnd = 8.dp,
+                        topStart = 8.dp,
+                        bottomStart = 8.dp
                     ))
                     .background(temaVisual.progressColor)
             )
@@ -436,4 +440,29 @@ fun BottomSection(
             onClick = onContinue
         )
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun LessonHeaderPreview() {
+    // Creamos un tema visual de ejemplo para la previsualización
+    val previewTheme = TemaVisual(
+        baseColor = Color(0xFF4285F4),
+        gradientLight = Color(0xFF34A853),
+        gradientDark = Color(0xFF4285F4),
+        progressColor = Color(0xFFFBBC05),
+        progressBar = R.drawable.ic_bar_azul,
+        CloseIcon = R.drawable.ic_close_azul,
+        categoryIcon = R.drawable.zorro_inicio,
+        background = R.drawable.background_agua,
+        categoryIconFeliz = R.drawable.zorro_feliz,
+        categoryIconTriste = R.drawable.zorro_triste
+    )
+
+    LessonHeader(
+        progress = 1f, // 65% de progreso
+        lives = 3,        // 3 vidas
+        onBackPressed = { /* Acción al presionar el botón de retroceso */ },
+        temaVisual = previewTheme
+    )
 }

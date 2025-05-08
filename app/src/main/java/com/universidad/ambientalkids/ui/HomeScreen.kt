@@ -249,15 +249,19 @@ fun HomeScreen(
                 // Progreso
                 Box(
                     modifier = Modifier
-                        .fillMaxWidth(userState.levelProgress)
-                        .height(17.dp)
-                        .zIndex(1f)
-                        .offset(y = (3.73).dp)
-                        .background(section.progressColor)
+                        .offset(y = 4.dp, x = 5.2.dp)
                         .clip(RoundedCornerShape(
-                            topEnd = 12.dp,
-                            bottomEnd = 12.dp
+                            topEnd = 8.dp,
+                            bottomEnd = 8.dp,
+                            topStart = 8.dp,
+                            bottomStart = 8.dp
                         ))
+                        .padding(end = 12.dp)
+                        .fillMaxWidth(userState.levelProgress)
+                        .height(18.9.dp)
+                        .zIndex(1f)
+                        .background(section.progressColor)
+
                 )
 
                 Text(
