@@ -1,6 +1,4 @@
-package com.universidad.finankids.data.model
-
-import com.universidad.ambientalkids.data.model.ActivityContent
+package com.universidad.ambientalkids.data.model
 
 data class Lesson(
     val id: String = "",

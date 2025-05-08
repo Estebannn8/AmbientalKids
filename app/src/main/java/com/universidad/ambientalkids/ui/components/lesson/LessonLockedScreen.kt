@@ -1,4 +1,4 @@
-package com.universidad.finankids.ui.Components.lesson
+package com.universidad.ambientalkids.ui.components.lesson
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -19,7 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.universidad.ambientalkids.ui.components.CustomButton
-import com.universidad.finankids.ui.lesson.TemaVisual
+import com.universidad.ambientalkids.ui.lesson.TemaVisual
 
 @Composable
 fun LessonLockedScreen(

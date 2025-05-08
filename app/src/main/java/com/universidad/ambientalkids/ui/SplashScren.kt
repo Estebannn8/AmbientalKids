@@ -26,8 +26,8 @@ import com.universidad.ambientalkids.R
 import com.universidad.ambientalkids.navigation.AppScreens
 import com.universidad.ambientalkids.ui.components.LoadingOverlay
 import com.universidad.ambientalkids.viewmodel.AuthViewModel
-import com.universidad.finankids.events.UserEvent
-import com.universidad.finankids.viewmodel.UserViewModel
+import com.universidad.ambientalkids.events.UserEvent
+import com.universidad.ambientalkids.viewmodel.UserViewModel
 import kotlinx.coroutines.delay
 
 @Composable

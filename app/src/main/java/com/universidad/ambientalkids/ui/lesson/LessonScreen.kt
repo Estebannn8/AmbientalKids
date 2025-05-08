@@ -1,4 +1,4 @@
-package com.universidad.finankids.ui.lesson
+package com.universidad.ambientalkids.ui.lesson
 
 import android.util.Log
 import androidx.compose.foundation.Image
@@ -38,23 +38,23 @@ import com.universidad.ambientalkids.R
 import com.universidad.ambientalkids.navigation.AppScreens
 import com.universidad.ambientalkids.ui.components.CustomButton
 import com.universidad.ambientalkids.ui.components.LoadingOverlay
-import com.universidad.finankids.data.model.ActivityType
-import com.universidad.finankids.events.LessonEvent
-import com.universidad.finankids.state.LessonState
-import com.universidad.finankids.ui.Components.lesson.AllLessonsCompletedScreen
-import com.universidad.finankids.ui.Components.lesson.ErrorScreen
-import com.universidad.finankids.ui.Components.lesson.FeedbackOverlay
-import com.universidad.finankids.ui.Components.lesson.LessonCompleteScreen
-import com.universidad.finankids.ui.Components.lesson.LessonLockedScreen
+import com.universidad.ambientalkids.data.model.ActivityType
+import com.universidad.ambientalkids.events.LessonEvent
+import com.universidad.ambientalkids.state.LessonState
+import com.universidad.ambientalkids.ui.components.lesson.AllLessonsCompletedScreen
+import com.universidad.ambientalkids.ui.components.lesson.ErrorScreen
+import com.universidad.ambientalkids.ui.components.lesson.FeedbackOverlay
+import com.universidad.ambientalkids.ui.components.lesson.LessonCompleteScreen
+import com.universidad.ambientalkids.ui.components.lesson.LessonLockedScreen
 import com.universidad.finankids.ui.lesson.activities.DragPairsActivity
 import com.universidad.finankids.ui.lesson.activities.FillBlankActivity
 import com.universidad.finankids.ui.lesson.activities.MatchingActivity
 import com.universidad.finankids.ui.lesson.activities.MultipleChoiceActivity
 import com.universidad.finankids.ui.lesson.activities.SentenceBuilderActivity
 import com.universidad.finankids.ui.lesson.activities.TeachingActivity
-import com.universidad.finankids.viewmodel.LessonsViewModel
-import com.universidad.finankids.viewmodel.LessonsViewModel.LoadingState
-import com.universidad.finankids.viewmodel.UserViewModel
+import com.universidad.ambientalkids.viewmodel.LessonsViewModel
+import com.universidad.ambientalkids.viewmodel.LessonsViewModel.LoadingState
+import com.universidad.ambientalkids.viewmodel.UserViewModel
 
 @Composable
 fun LessonScreen(

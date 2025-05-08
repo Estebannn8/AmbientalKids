@@ -1,6 +1,6 @@
-package com.universidad.finankids.state
+package com.universidad.ambientalkids.state
 
-import com.universidad.finankids.data.model.UserData
+import com.universidad.ambientalkids.data.model.UserData
 
 data class UserState(
     val userData: UserData = UserData(),

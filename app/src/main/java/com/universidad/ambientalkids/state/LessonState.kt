@@ -1,8 +1,8 @@
-package com.universidad.finankids.state
+package com.universidad.ambientalkids.state
 
 import com.universidad.ambientalkids.data.model.ActivityContent
-import com.universidad.finankids.data.model.Lesson
-import com.universidad.finankids.data.model.MatchingPair
+import com.universidad.ambientalkids.data.model.Lesson
+import com.universidad.ambientalkids.data.model.MatchingPair
 
 data class LessonState(
     val currentLesson: Lesson? = null,

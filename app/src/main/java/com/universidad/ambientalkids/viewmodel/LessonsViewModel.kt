@@ -1,14 +1,14 @@
-package com.universidad.finankids.viewmodel
+package com.universidad.ambientalkids.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.firestore.FirebaseFirestore
-import com.universidad.finankids.data.model.ActivityType
-import com.universidad.finankids.data.model.Lesson
-import com.universidad.finankids.data.model.MatchingPair
-import com.universidad.finankids.events.LessonEvent
-import com.universidad.finankids.state.LessonState
+import com.universidad.ambientalkids.data.model.ActivityType
+import com.universidad.ambientalkids.data.model.Lesson
+import com.universidad.ambientalkids.data.model.MatchingPair
+import com.universidad.ambientalkids.events.LessonEvent
+import com.universidad.ambientalkids.state.LessonState
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

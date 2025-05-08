@@ -1,6 +1,6 @@
-package com.universidad.finankids.events
+package com.universidad.ambientalkids.events
 
-import com.universidad.finankids.data.model.UserData
+import com.universidad.ambientalkids.data.model.UserData
 
 sealed class UserEvent {
     data class LoadUser(val uid: String) : UserEvent()

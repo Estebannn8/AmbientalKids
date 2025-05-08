@@ -13,12 +13,12 @@ import com.universidad.ambientalkids.ui.SplashScreen
 import com.universidad.ambientalkids.ui.auth.AuthScreen
 import com.universidad.ambientalkids.ui.auth.RecoveryScreen
 import com.universidad.ambientalkids.viewmodel.AuthViewModel
-import com.universidad.finankids.ui.HomeScreen
-import com.universidad.finankids.ui.ProfileScreen
-import com.universidad.finankids.ui.StoreScreen
-import com.universidad.finankids.ui.lesson.LessonScreen
-import com.universidad.finankids.viewmodel.LessonsViewModel
-import com.universidad.finankids.viewmodel.UserViewModel
+import com.universidad.ambientalkids.ui.HomeScreen
+import com.universidad.ambientalkids.ui.ProfileScreen
+import com.universidad.ambientalkids.ui.StoreScreen
+import com.universidad.ambientalkids.ui.lesson.LessonScreen
+import com.universidad.ambientalkids.viewmodel.LessonsViewModel
+import com.universidad.ambientalkids.viewmodel.UserViewModel
 
 @Composable
 fun AppNavigation(modifier: Modifier = Modifier) {

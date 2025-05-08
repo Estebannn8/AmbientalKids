@@ -1,4 +1,4 @@
-package com.universidad.finankids.ui.Components.lesson
+package com.universidad.ambientalkids.ui.components.lesson
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

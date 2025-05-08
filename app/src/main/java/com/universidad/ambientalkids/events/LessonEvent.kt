@@ -1,6 +1,6 @@
-package com.universidad.finankids.events
+package com.universidad.ambientalkids.events
 
-import com.universidad.finankids.data.model.MatchingPair
+import com.universidad.ambientalkids.data.model.MatchingPair
 
 sealed class LessonEvent {
     data class LoadLessonAndInitialize(

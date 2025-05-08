@@ -64,8 +64,8 @@ import com.universidad.ambientalkids.ui.components.CustomTextField
 import com.universidad.ambientalkids.ui.components.LoadingOverlay
 import com.universidad.ambientalkids.ui.theme.AppTypography
 import com.universidad.ambientalkids.viewmodel.AuthViewModel
-import com.universidad.finankids.events.UserEvent
-import com.universidad.finankids.viewmodel.UserViewModel
+import com.universidad.ambientalkids.events.UserEvent
+import com.universidad.ambientalkids.viewmodel.UserViewModel
 import kotlinx.coroutines.launch
 
 @Composable

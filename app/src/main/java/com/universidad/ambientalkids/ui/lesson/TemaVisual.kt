@@ -1,4 +1,4 @@
-package com.universidad.finankids.ui.lesson
+package com.universidad.ambientalkids.ui.lesson
 
 import androidx.compose.ui.graphics.Color
 

@@ -25,10 +25,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.universidad.finankids.data.model.MatchingPair
-import com.universidad.finankids.events.LessonEvent
-import com.universidad.finankids.state.LessonState
-import com.universidad.finankids.ui.lesson.TemaVisual
+import com.universidad.ambientalkids.data.model.MatchingPair
+import com.universidad.ambientalkids.events.LessonEvent
+import com.universidad.ambientalkids.state.LessonState
+import com.universidad.ambientalkids.ui.lesson.TemaVisual
 
 @Composable
 fun MatchingActivity(

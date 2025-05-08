@@ -1,4 +1,4 @@
-package com.universidad.finankids.data.model
+package com.universidad.ambientalkids.data.model
 
 data class UserData(
     val uid: String = "",
