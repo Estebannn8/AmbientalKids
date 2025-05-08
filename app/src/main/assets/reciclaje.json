@@ -1,0 +1,215 @@
+{
+  "leccion_001": {
+    "title": "¡Conozcamos el reciclaje!",
+    "order": 1,
+    "baseExp": 200,
+    "baseDinero": 100,
+    "lives": 5,
+    "activities": [
+      {
+        "type": "Teaching",
+        "title": "Zorri te enseña a reciclar",
+        "explanation": "¡Hola, soy Zorri! El reciclaje es cuando usamos las cosas otra vez. Así cuidamos la Tierra. ¡Es como magia verde! 🌱✨"
+      },
+      {
+        "type": "Matching",
+        "title": "Basura y su lugar",
+        "question": "Empareja cada objeto con la basura correcta:",
+        "matchingPairs": [
+          { "leftItem": "Botella", "rightItem": "Plástico" },
+          { "leftItem": "Papel", "rightItem": "Papelera" },
+          { "leftItem": "Cáscara de banana", "rightItem": "Orgánico" }
+        ],
+        "shuffledRightItems": ["Orgánico", "Plástico", "Papelera"],
+        "feedback": "¡Eres un experto separando residuos! 🗑️👏"
+      },
+      {
+        "type": "SentenceBuilder",
+        "title": "Arma la frase correcta",
+        "question": "Ordena las palabras:",
+        "sentenceParts": ["Reciclar", "es", "muy", "bueno"],
+        "correctOrder": ["Reciclar", "es", "muy", "bueno."],
+        "feedback": "¡Lo hiciste genial! ¡Zorri te da una estrella verde! ⭐♻️"
+      },
+      {
+        "type": "FillBlank",
+        "title": "Completa la idea",
+        "question": "Reciclar ayuda al ______.",
+        "options": ["planeta", "zorro", "carro", "juego"],
+        "correctAnswer": "planeta",
+        "feedback": "¡Exacto! ¡Zorri está orgulloso de ti! 🌍🧡"
+      },
+      {
+        "type": "MultipleChoice",
+        "title": "¿Qué se puede reciclar?",
+        "question": "¿Cuál de estos objetos se puede reciclar?",
+        "options": ["Botella de plástico", "Manzana mordida", "Juguete roto", "Papel higiénico usado"],
+        "correctAnswer": "Botella de plástico",
+        "feedback": "¡Correcto! ¡Buena elección, pequeño reciclador! ♻️🦊"
+      }
+    ]
+  },
+  "leccion_002": {
+    "title": "¡Recicla como un campeón!",
+    "order": 2,
+    "baseExp": 250,
+    "baseDinero": 150,
+    "lives": 5,
+    "activities": [
+      {
+        "type": "Teaching",
+        "title": "Zorri recicla todos los días",
+        "explanation": "Zorri tiene 3 tipos de basura de colores. El blanco es para papel, el vidrio y el cartón, el verde para cáscaras de fruta, y el negro para papel higiénico usado o cartones de comida usados. ¡Reciclar es divertido y fácil!"
+      },
+      {
+        "type": "DragPairs",
+        "title": "Ordena cómo reciclar",
+        "question": "Pon en orden los pasos para reciclar una botella:",
+        "orderedPairs": [
+          { "item": "Lavar la botella", "correctPosition": 1 },
+          { "item": "Quitar la tapa", "correctPosition": 2 },
+          { "item": "Aplastarla", "correctPosition": 3 },
+          { "item": "Ponerla en la basura blanca", "correctPosition": 4 }
+        ],
+        "showNumbers": true,
+        "feedback": "¡Así se recicla como un profesional! 🥇💛"
+      },
+      {
+        "type": "SentenceBuilder",
+        "title": "Construye la frase",
+        "question": "Arma esta frase importante:",
+        "sentenceParts": ["Los", "se", "residuos", "separan"],
+        "correctOrder": ["Los", "residuos", "se", "separan."],
+        "feedback": "¡Súper bien! ¡Separar ayuda mucho! 🚮✔️"
+      },
+      {
+        "type": "MultipleChoice",
+        "title": "¿Dónde va el papel?",
+        "question": "¿Qué color es el contenedor de basura donde se desecha el papel?",
+        "options": ["Blanca", "Negro", "Azul", "Verde"],
+        "correctAnswer": "Blanca",
+        "feedback": "¡Sí! ¡Azul como el cielo limpio que cuidamos! ☁️🟦"
+      },
+      {
+        "type": "FillBlank",
+        "title": "Completa la frase",
+        "question": "Tirar basura en su lugar es un acto de ______.",
+        "options": ["pereza", "perdón", "cariño", "ruido"],
+        "correctAnswer": "cariño",
+        "feedback": "¡Exacto! ¡Cuidar es amar! 💚🧸"
+      },
+      {
+        "type": "Matching",
+        "title": "¿Qué va en cada color?",
+        "question": "Empareja el color de la basura con el material correcto:",
+        "matchingPairs": [
+          { "leftItem": "Blanco", "rightItem": "Plástico" },
+          { "leftItem": "Negro", "rightItem": "Cajita feliz después de comer" },
+          { "leftItem": "Verde", "rightItem": "El huesito del pollo" }
+        ],
+        "shuffledRightItems": [
+          "Cajita feliz después de comer",
+          "Plástico",
+          "El huesito del pollo"
+        ],
+        "feedback": "¡Perfecto! ¡Zorri te nombra Guardián del Reciclaje! 🦊👑"
+      }
+    ]
+  },
+  "leccion_003": {
+    "title": "Separar es ayudar",
+    "order": 3,
+    "baseExp": 180,
+    "baseDinero": 120,
+    "lives": 5,
+    "activities": [
+      {
+        "type": "FillBlank",
+        "title": "Elige la respuesta correcta",
+        "question": "El plástico va en el basurero de color ______.",
+        "options": ["rojo", "negro", "blanco", "verde"],
+        "correctAnswer": "blanco",
+        "feedback": "¡Correcto! Así ayudamos al reciclaje. 🗑️"
+      },
+      {
+        "type": "Teaching",
+        "title": "Aprendamos sobre colores",
+        "explanation": "Cada tipo de basura tiene su color. Así reciclamos mejor. ¡Aprender los colores ayuda al planeta!"
+      },
+      {
+        "type": "SentenceBuilder",
+        "title": "Construye tu mensaje",
+        "question": "Arma esta frase sobre reciclaje:",
+        "sentenceParts": ["La", "basura", "se", "separa", "bien"],
+        "correctOrder": ["La", "basura", "se", "separa", "bien."],
+        "feedback": "¡Muy bien! Separar es el primer paso para cuidar. ♻️"
+      }
+    ]
+  },
+  "leccion_004": {
+    "title": "Los amigos del reciclaje",
+    "order": 4,
+    "baseExp": 220,
+    "baseDinero": 150,
+    "lives": 5,
+    "activities": [
+      {
+        "type": "Teaching",
+        "title": "Zorri y sus amigos",
+        "explanation": "Zorri y sus amigos separan la basura juntos. Cada uno conoce los colores del reciclaje. ¡Tú también puedes!"
+      },
+      {
+        "type": "MultipleChoice",
+        "title": "¿Quién recicla mejor?",
+        "question": "¿Qué amigo recicla correctamente?",
+        "options": [
+          "Luna tira todo en una bolsa",
+          "Tito separa por colores",
+          "Max mezcla todo en una caja",
+          "Lola entierra la basura"
+        ],
+        "correctAnswer": "Tito separa por colores",
+        "feedback": "¡Correcto! Separar por colores es la clave. 🎨"
+      }
+    ]
+  },
+  "leccion_005": {
+    "title": "Transformar y reutilizar",
+    "order": 5,
+    "baseExp": 240,
+    "baseDinero": 200,
+    "lives": 5,
+    "activities": [
+      {
+        "type": "Matching",
+        "title": "Dale nueva vida",
+        "question": "Empareja los objetos con sus nuevos usos:",
+        "matchingPairs": [
+          { "leftItem": "Lata", "rightItem": "Portalápices" },
+          { "leftItem": "Botella", "rightItem": "Maceta" },
+          { "leftItem": "Caja", "rightItem": "Organizador" }
+        ],
+        "shuffledRightItems": ["Portalápices", "Maceta", "Organizador"],
+        "feedback": "¡Eso es creatividad recicladora! 🎨🌎"
+      },
+      {
+        "type": "Teaching",
+        "title": "Reutilizar es mágico",
+        "explanation": "Reutilizar es cuando transformamos objetos en algo nuevo. Así, evitamos más basura. ¡Zorri ama crear cosas nuevas!"
+      },
+      {
+        "type": "DragPairs",
+        "title": "Pasos para reutilizar",
+        "question": "Ordena los pasos para hacer una maceta con botella:",
+        "orderedPairs": [
+          { "item": "Cortar la botella", "correctPosition": 1 },
+          { "item": "Hacer agujeros", "correctPosition": 2 },
+          { "item": "Poner tierra", "correctPosition": 3 },
+          { "item": "Plantar semilla", "correctPosition": 4 }
+        ],
+        "showNumbers": true,
+        "feedback": "¡Maceta lista! 🌱🪴"
+      }
+    ]
+  }
+}

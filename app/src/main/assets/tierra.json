@@ -1,0 +1,114 @@
+{
+  "leccion_001": {
+    "title": "¡Conozcamos la tierra!",
+    "order": 1,
+    "baseExp": 200,
+    "baseDinero": 100,
+    "lives": 5,
+    "activities": [
+      {
+        "type": "Teaching",
+        "title": "Cone te enseña sobre el suelo",
+        "explanation": "¡Hola, soy Cone el conejo! La tierra es donde crecen las plantas y viven muchos animalitos. ¡Es como una gran manta que cubre el planeta! �🌱"
+      },
+      {
+        "type": "Matching",
+        "title": "Animales de la tierra",
+        "question": "Empareja cada animal con su hogar:",
+        "matchingPairs": [
+          { "leftItem": "Topo", "rightItem": "Madriguera" },
+          { "leftItem": "Hormiga", "rightItem": "Hormiguero" },
+          { "leftItem": "Lombriz", "rightItem": "Suelo" }
+        ],
+        "shuffledRightItems": ["Suelo", "Madriguera", "Hormiguero"],
+        "feedback": "¡Genial! Conoces a mis amigos. 🐰💚"
+      },
+      {
+        "type": "MultipleChoice",
+        "title": "¿Qué nos da la tierra?",
+        "question": "¿Qué podemos obtener de la tierra?",
+        "options": [
+          "Frutas y verduras",
+          "Agua salada",
+          "Nubes",
+          "Pájaros volando"
+        ],
+        "correctAnswer": "Frutas y verduras",
+        "feedback": "¡Exacto! La tierra nos alimenta. 🥕🍎"
+      }
+    ]
+  },
+  "leccion_002": {
+    "title": "¡Cuidemos el suelo!",
+    "order": 2,
+    "baseExp": 250,
+    "baseDinero": 150,
+    "lives": 5,
+    "activities": [
+      {
+        "type": "Teaching",
+        "title": "Cone y la tierra sana",
+        "explanation": "Para tener tierra sana, debemos evitar contaminarla. ¡No tires basura! Las plantas y animalitos te lo agradecerán."
+      },
+      {
+        "type": "DragPairs",
+        "title": "Pasos para plantar",
+        "question": "Ordena los pasos para plantar una semilla:",
+        "orderedPairs": [
+          { "item": "Hacer un hoyo", "correctPosition": 1 },
+          { "item": "Poner la semilla", "correctPosition": 2 },
+          { "item": "Cubrir con tierra", "correctPosition": 3 },
+          { "item": "Regar", "correctPosition": 4 }
+        ],
+        "showNumbers": true,
+        "feedback": "¡Pronto crecerá una planta! 🌱🌞"
+      },
+      {
+        "type": "FillBlank",
+        "title": "Completa la frase",
+        "question": "Las ______ ayudan a airear la tierra.",
+        "options": ["lombrices", "mariposas", "ranas", "nubes"],
+        "correctAnswer": "lombrices",
+        "feedback": "¡Sí! Son las ingenieras del suelo. 🐛💚"
+      }
+    ]
+  },
+  "leccion_003": {
+    "title": "Las capas de la tierra",
+    "order": 3,
+    "baseExp": 220,
+    "baseDinero": 120,
+    "lives": 5,
+    "activities": [
+      {
+        "type": "Teaching",
+        "title": "El hogar de Cone",
+        "explanation": "La tierra tiene capas como un pastel. Arriba está el humus donde viven las plantas, luego tierra más dura y piedras abajo."
+      },
+      {
+        "type": "SentenceBuilder",
+        "title": "Construye la frase",
+        "question": "Ordena las palabras:",
+        "sentenceParts": ["Las", "raíces", "crecen", "en", "la", "tierra"],
+        "correctOrder": ["Las", "raíces", "crecen", "en", "la", "tierra."],
+        "feedback": "¡Muy bien! Cone salta de alegría. 🐇🌿"
+      },
+      {
+        "type": "Matching",
+        "title": "Capas de la tierra",
+        "question": "Empareja cada capa con su descripción:",
+        "matchingPairs": [
+          { "leftItem": "Humus", "rightItem": "Donde crecen las plantas" },
+          { "leftItem": "Subsuelo", "rightItem": "Tierra más compacta" },
+          { "leftItem": "Roca madre", "rightItem": "Capa más profunda" }
+        ],
+        "shuffledRightItems": [
+          "Donde crecen las plantas",
+          "Tierra más compacta",
+          "Capa más profunda"
+        ],
+        "feedback": "¡Conoces las capas como Cone! 🐰🏆"
+      }
+    ]
+  }
+}

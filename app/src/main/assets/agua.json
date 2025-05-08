@@ -1,0 +1,106 @@
+{
+  "leccion_001": {
+    "title": "¡Conozcamos el agua!",
+    "order": 1,
+    "baseExp": 200,
+    "baseDinero": 100,
+    "lives": 5,
+    "activities": [
+      {
+        "type": "Teaching",
+        "title": "Goti te enseña sobre el agua",
+        "explanation": "¡Hola, soy Goti la gota de agua! El agua es muy importante para todos los seres vivos. Sin agua no podríamos vivir. ¡Cuidémosla juntos! 💧🌍"
+      },
+      {
+        "type": "Matching",
+        "title": "Usos del agua",
+        "question": "Empareja cada actividad con su uso de agua:",
+        "matchingPairs": [
+          { "leftItem": "Regar plantas", "rightItem": "Cuidar la naturaleza" },
+          { "leftItem": "Lavarse las manos", "rightItem": "Higiene" },
+          { "leftItem": "Beber agua", "rightItem": "Salud" }
+        ],
+        "shuffledRightItems": ["Salud", "Higiene", "Cuidar la naturaleza"],
+        "feedback": "¡Muy bien! Sabes para qué usamos el agua. 👏💦"
+      },
+      {
+        "type": "SentenceBuilder",
+        "title": "Arma la frase correcta",
+        "question": "Ordena las palabras:",
+        "sentenceParts": ["El", "agua", "es", "vida"],
+        "correctOrder": ["El", "agua", "es", "vida."],
+        "feedback": "¡Perfecto! Goti está muy contenta. ⭐💧"
+      }
+    ]
+  },
+  "leccion_002": {
+    "title": "¡Ahorremos agua!",
+    "order": 2,
+    "baseExp": 250,
+    "baseDinero": 150,
+    "lives": 5,
+    "activities": [
+      {
+        "type": "Teaching",
+        "title": "Goti enseña a ahorrar",
+        "explanation": "¡Cerrar el grifo mientras te lavas los dientes puede ahorrar mucha agua! Goti te muestra cómo cuidar este recurso tan valioso."
+      },
+      {
+        "type": "DragPairs",
+        "title": "Pasos para lavarse las manos",
+        "question": "Ordena los pasos para lavarse las manos sin desperdiciar agua:",
+        "orderedPairs": [
+          { "item": "Mojar las manos", "correctPosition": 1 },
+          { "item": "Enjabonar", "correctPosition": 2 },
+          { "item": "Cerrar el grifo", "correctPosition": 3 },
+          { "item": "Abrir para enjuagar", "correctPosition": 4 }
+        ],
+        "showNumbers": true,
+        "feedback": "¡Así se ahorra agua como un experto! 🚰👏"
+      },
+      {
+        "type": "MultipleChoice",
+        "title": "¿Cómo ahorrar agua?",
+        "question": "¿Cuál es la mejor forma de ahorrar agua al lavar los platos?",
+        "options": [
+          "Dejar el grifo abierto todo el tiempo",
+          "Llenar un recipiente con agua para enjabonar",
+          "Lavar cada plato por separado",
+          "Usar agua caliente siempre"
+        ],
+        "correctAnswer": "Llenar un recipiente con agua para enjabonar",
+        "feedback": "¡Correcto! Goti está orgullosa de ti. 🍽️💙"
+      }
+    ]
+  },
+  "leccion_003": {
+    "title": "El ciclo del agua",
+    "order": 3,
+    "baseExp": 220,
+    "baseDinero": 120,
+    "lives": 5,
+    "activities": [
+      {
+        "type": "Teaching",
+        "title": "El viaje de Goti",
+        "explanation": "Goti viaja por el ciclo del agua: de las nubes a la lluvia, a los ríos, al mar y de vuelta a las nubes. ¡Es un viaje interminable! ☁️→🌧️→🌊→☁️"
+      },
+      {
+        "type": "FillBlank",
+        "title": "Completa el ciclo",
+        "question": "El agua se evapora y forma ______.",
+        "options": ["nubes", "piedras", "árboles", "peces"],
+        "correctAnswer": "nubes",
+        "feedback": "¡Sí! Goti viaja en las nubes. ☁️💧"
+      },
+      {
+        "type": "SentenceBuilder",
+        "title": "Construye la frase",
+        "question": "Ordena las palabras sobre el ciclo:",
+        "sentenceParts": ["La", "lluvia", "riega", "las", "plantas"],
+        "correctOrder": ["La", "lluvia", "riega", "las", "plantas."],
+        "feedback": "¡Excelente! Las plantas aman a Goti. 🌱💦"
+      }
+    ]
+  }
+}

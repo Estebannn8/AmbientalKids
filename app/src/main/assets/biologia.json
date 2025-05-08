@@ -1,0 +1,111 @@
+{
+  "leccion_001": {
+    "title": "¡Vida en todas partes!",
+    "order": 1,
+    "baseExp": 200,
+    "baseDinero": 100,
+    "lives": 5,
+    "activities": [
+      {
+        "type": "Teaching",
+        "title": "Rani te enseña sobre seres vivos",
+        "explanation": "¡Croac! Soy Rani la rana. Los seres vivos crecen, se alimentan y se reproducen. ¡Las plantas, animales y nosotros somos seres vivos! 🌿🐸"
+      },
+      {
+        "type": "MultipleChoice",
+        "title": "¿Qué es un ser vivo?",
+        "question": "¿Cuál de estos es un ser vivo?",
+        "options": [
+          "Una piedra",
+          "Un árbol",
+          "Una nube",
+          "Un coche"
+        ],
+        "correctAnswer": "Un árbol",
+        "feedback": "¡Croac! Correcto, los árboles son seres vivos. 🌳💚"
+      },
+      {
+        "type": "SentenceBuilder",
+        "title": "Arma la frase",
+        "question": "Ordena las palabras:",
+        "sentenceParts": ["Las", "ranas", "son", "seres", "vivos"],
+        "correctOrder": ["Las", "ranas", "son", "seres", "vivos."],
+        "feedback": "¡Croac croac! Así es. 🐸⭐"
+      }
+    ]
+  },
+  "leccion_002": {
+    "title": "Hábitats naturales",
+    "order": 2,
+    "baseExp": 250,
+    "baseDinero": 150,
+    "lives": 5,
+    "activities": [
+      {
+        "type": "Teaching",
+        "title": "El hogar de Rani",
+        "explanation": "Yo, Rani, vivo en un estanque. Cada ser vivo tiene su hábitat perfecto: los peces en el agua, los pájaros en los árboles, los conejos en madrigueras."
+      },
+      {
+        "type": "Matching",
+        "title": "Animales y sus hogares",
+        "question": "Empareja cada animal con su hábitat:",
+        "matchingPairs": [
+          { "leftItem": "Pez", "rightItem": "Estanque" },
+          { "leftItem": "Águila", "rightItem": "Nido alto" },
+          { "leftItem": "Rana", "rightItem": "Charca" }
+        ],
+        "shuffledRightItems": ["Charca", "Estanque", "Nido alto"],
+        "feedback": "¡Croac! Todos en su lugar ideal. 🐸🏡"
+      },
+      {
+        "type": "FillBlank",
+        "title": "Completa la frase",
+        "question": "Las plantas necesitan ______ para crecer.",
+        "options": ["luz", "tele", "zapatos", "carros"],
+        "correctAnswer": "luz",
+        "feedback": "¡Sí! Sin luz no hay fotosíntesis. 🌞🌱"
+      }
+    ]
+  },
+  "leccion_003": {
+    "title": "Cadenas alimenticias",
+    "order": 3,
+    "baseExp": 220,
+    "baseDinero": 120,
+    "lives": 5,
+    "activities": [
+      {
+        "type": "Teaching",
+        "title": "Rani explica la cadena",
+        "explanation": "¡Croac! En la naturaleza todos están conectados: el sol ayuda a las plantas, las plantas alimentan insectos, los insectos alimentan ranas como yo, y las ranas alimentan aves."
+      },
+      {
+        "type": "DragPairs",
+        "title": "Ordena la cadena",
+        "question": "Ordena esta cadena alimenticia:",
+        "orderedPairs": [
+          { "item": "Planta", "correctPosition": 1 },
+          { "item": "Saltamontes", "correctPosition": 2 },
+          { "item": "Rana", "correctPosition": 3 },
+          { "item": "Garza", "correctPosition": 4 }
+        ],
+        "showNumbers": true,
+        "feedback": "¡Croac! Así funciona la naturaleza. 🌿→🦗→🐸→🦢"
+      },
+      {
+        "type": "MultipleChoice",
+        "title": "¿Quién come plantas?",
+        "question": "¿Cuál de estos animales come plantas?",
+        "options": [
+          "León",
+          "Conejo",
+          "Tiburón",
+          "Águila"
+        ],
+        "correctAnswer": "Conejo",
+        "feedback": "¡Correcto! Los conejos son herbívoros. 🐰🥕"
+      }
+    ]
+  }
+}
