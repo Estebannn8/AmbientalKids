@@ -31,60 +31,12 @@ fun Background(
 ) {
     Box(modifier = modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxSize()) {
-
-            // Parte superior con imagen decorativa
-            Box(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth()
-                    .background(Color(0xFFcfecfb))
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_top_decoration),
-                    contentDescription = null,
-                    contentScale = ContentScale.Fit,
-                    modifier = Modifier.fillMaxSize()
-                        .offset(y = 23.dp)
-                )
-            }
-
-            // Franja superior simulando el borde
-            Box(
-                modifier = Modifier
-                    .height(15.dp)
-                    .fillMaxWidth()
-                    .background(Color(0xFFc7e6ac))
+            Image(
+                painter = painterResource(id = R.drawable.ic_background),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxSize()
             )
-
-            // Parte inferior con imágenes decorativas
-            Box(
-                modifier = Modifier
-                    .weight(2f)
-                    .fillMaxWidth()
-                    .background(Color(0xFFdeefae))
-                    .clipToBounds() // <-- permite que las imágenes se salgan
-            ) {
-                // Imagen superior desplazada a la izquierda
-                Image(
-                    painter = painterResource(id = R.drawable.ic_bottom_decoration1),
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .offset(x = (-90).dp) // <-- ajusta este valor como quieras
-                        .align(Alignment.TopCenter)
-                )
-
-                // Imagen inferior, pegada al fondo
-                Image(
-                    painter = painterResource(id = R.drawable.ic_bottom_decoration2),
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .align(Alignment.BottomCenter)
-                )
-            }
         }
 
         // Contenido superpuesto

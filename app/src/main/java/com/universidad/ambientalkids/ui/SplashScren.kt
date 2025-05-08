@@ -1,11 +1,15 @@
 package com.universidad.ambientalkids.ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -13,9 +17,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.universidad.ambientalkids.R
 import com.universidad.ambientalkids.navigation.AppScreens
 import com.universidad.ambientalkids.ui.components.LoadingOverlay
 import com.universidad.ambientalkids.viewmodel.AuthViewModel
@@ -71,15 +78,14 @@ fun Splash(){
         contentAlignment = Alignment.BottomCenter
     ) {
 
-        /*
+
         Image(
-            painter = painterResource(id = R.drawable.ic_background_splash),
+            painter = painterResource(id = R.drawable.ic_background),
             contentDescription = "Background",
-            contentScale = ContentScale.FillBounds,
+            contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize()
         )
 
-         */
 
         //
         Column(
@@ -93,6 +99,14 @@ fun Splash(){
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(5.dp)
             ) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_logo),
+                    contentDescription = "Logo",
+                    modifier = Modifier
+                        .height(400.dp)
+                        .aspectRatio(1.2f)
+                        .offset(y = (-4).dp)
+                )
             }
         }
     }

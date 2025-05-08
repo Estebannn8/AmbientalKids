@@ -37,6 +37,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
@@ -80,59 +81,63 @@ fun HomeScreen(
     val sections = listOf(
         Section(
             "biologia",
-            Color(0x0A746474),
+            R.drawable.background_biologia_main,
             Color(0xFFBEEDB2),
             Color(0xDC62D744),
             "lima",
             R.drawable.rana_inicio,
-            R.drawable.texto_reciclaje,
-            20.dp, 55.dp,
+            R.drawable.texto_biologia,
+            20.dp, 65.dp,
             R.drawable.ic_lima_arrow_left,
             R.drawable.ic_lima_arrow_right,
             R.drawable.ic_jugar_lima,
-            R.drawable.ic_estrella_lima
+            R.drawable.ic_estrella_lima,
+            (-30).dp
         ),
         Section(
             "agua",
-            Color(0x0A79AFD4),
+            R.drawable.background_agua_main,
             Color(0xFFBDD4E5),
             Color(0xDC0270BA),
             "azul",
             R.drawable.gota_inicio,
             R.drawable.texto_agua,
-            20.dp, 55.dp,
+            20.dp, 85.dp,
             R.drawable.ic_azul_arrow_left,
             R.drawable.ic_azul_arrow_right,
             R.drawable.ic_jugar_azul,
-            R.drawable.ic_estrella_azul
+            R.drawable.ic_estrella_azul,
+            0.dp
         ),
         Section(
             "tierra",
-            Color(0x0AE4C78A),
+            R.drawable.background_tierra_main,
             Color(0xFFFFBA88),
             Color(0xDCED7621),
             "naranja",
             R.drawable.conejo_inicio,
             R.drawable.texto_tierra,
-            20.dp, 40.dp,
+            20.dp, 65.dp,
             R.drawable.ic_naranja_arrow_left,
             R.drawable.ic_naranja_arrow_right,
             R.drawable.ic_jugar_naranja,
-            R.drawable.ic_estrella_naranja
+            R.drawable.ic_estrella_naranja,
+            0.dp
         ),
         Section(
             "reciclaje",
-            Color(0x0AB28F76),
+            R.drawable.background_reciclaje_main,
             Color(0xFF89C5A7),
             Color(0xDC208B56),
             "verde",
             R.drawable.zorro_inicio,
-            R.drawable.texto_biologia,
-            25.dp, 55.dp,
+            R.drawable.texto_reciclaje,
+            25.dp, 65.dp,
             R.drawable.ic_verde_arrow_left,
             R.drawable.ic_verde_arrow_right,
             R.drawable.ic_jugar_verde,
-            R.drawable.ic_estrella_verde
+            R.drawable.ic_estrella_verde,
+            0.dp
         )
     )
 
@@ -158,396 +163,410 @@ fun HomeScreen(
         Log.d("SectionDebug", "Current section index changed to: $currentSectionIndex")
     }
 
-    Column(
+
+    Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(section.backgroundColor)
-            .padding(WindowInsets.statusBars.asPaddingValues()),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+    ){
+        Image(
+            painter = painterResource(section.background),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxSize()
+        )
 
-        // Header
-        Box(
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .height(120.dp)
+                .fillMaxSize()
+                .padding(WindowInsets.statusBars.asPaddingValues()),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // --- Avatar y Nivel ---
-            Row(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .zIndex(3f)
-                    .padding(start = 16.dp, end = 16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Start
-            ) {
-                Box(
-                    modifier = Modifier
-                        .size(70.dp)
-                        .zIndex(3f),
-                    contentAlignment = Alignment.Center
-                ) {
 
-                    // Nivel
-                    val levelIconRes = when (section.color) {
-                        "azul" -> R.drawable.ic_nivel_azul
-                        "lima" -> R.drawable.ic_nivel_lima
-                        "naranja" -> R.drawable.ic_nivel_naranja
-                        "verde" -> R.drawable.ic_nivel_verde
-                        else -> R.drawable.ic_nivel_azul
-                    }
-                    Box(
-                        modifier = Modifier
-                            .size(28.dp)
-                            .align(Alignment.Center)
-                            .offset(y = 11.5.dp),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Image(
-                            painter = painterResource(id = levelIconRes),
-                            contentDescription = "Icono de nivel",
-                            modifier = Modifier.fillMaxSize(),
-                            contentScale = ContentScale.Fit
-                        )
-                        Text(
-                            text = "${userState.nivel}",  // <- Nivel
-                            color = Color.White,
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.Bold
-                        )
-                    }
-                }
-            }
-
-            // --- Barra de experiencia ---
-            val expBarRes = when (section.color) {
-                "azul" -> R.drawable.ic_bar_azul
-                "lima" -> R.drawable.ic_bar_lima
-                "naranja" -> R.drawable.ic_bar_naranja
-                "verde" -> R.drawable.ic_bar_verde
-                else -> R.drawable.ic_bar_azul
-            }
-
+            // Header
             Box(
                 modifier = Modifier
-                    .fillMaxWidth(0.7f)
-                    .height(32.dp)
-                    .align(Alignment.BottomStart)
-                    .offset(x = 80.dp, y = (-30).dp)
-                    .zIndex(1f)
+                    .fillMaxWidth()
+                    .height(120.dp)
             ) {
-                // Fondo de la barra
-                Image(
-                    painter = painterResource(id = expBarRes),
-                    contentDescription = "Barra de experiencia",
+                // --- Avatar y Nivel ---
+                Row(
                     modifier = Modifier
                         .fillMaxSize()
-                        .zIndex(0f),
-                    contentScale = ContentScale.FillBounds
-                )
-
-                // Progreso
-                Box(
-                    modifier = Modifier
-                        .offset(y = 4.dp, x = 5.2.dp)
-                        .clip(RoundedCornerShape(
-                            topEnd = 8.dp,
-                            bottomEnd = 8.dp,
-                            topStart = 8.dp,
-                            bottomStart = 8.dp
-                        ))
-                        .padding(end = 12.dp)
-                        .fillMaxWidth(userState.levelProgress)
-                        .height(18.9.dp)
-                        .zIndex(1f)
-                        .background(section.progressColor)
-
-                )
-
-                Text(
-                    text = "${userState.expInCurrentLevel} / ${userState.expNeededToNextLevel} XP",
-                    color = Color(0xFF636363),
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .align(Alignment.CenterEnd)
                         .zIndex(3f)
-                        .offset(y = (-2.8).dp, x = (-20).dp)
-                )
-            }
-
-            // --- Nickname y Dinero ---
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(0.7f)
-                    .align(Alignment.BottomStart)
-                    .offset(x = 88.dp, y = (-68).dp) // Justo encima de la barra
-                    .zIndex(3f),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                AppTypography.ItimStroke(
-                    text = userState.userData.nickname,   // <- Nickname
-                    strokeColor = Color.White,
-                    fillColor = Color.White,
-                    fontSize = 22.sp,
-                    textAlign = TextAlign.Start,
-                    lineHeight = 1.sp,
-                    letterSpacing = 1.sp
-                )
-
-
-                Row(
+                        .padding(start = 16.dp, end = 16.dp),
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.padding(end = 20.dp)
+                    horizontalArrangement = Arrangement.Start
                 ) {
-                    Text(
-                        text = "${userState.userData.dinero}", // Dinero actual
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.White
-                    )
-                    Spacer(modifier = Modifier.width(4.dp))
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_coin),
-                        contentDescription = "Moneda",
-                        modifier = Modifier.size(22.dp)
-                    )
-                }
-            }
-
-        }
-
-
-        // Contenido principal (sección media + puntuación)
-        Box(
-            modifier = Modifier.weight(1f),
-            contentAlignment = Alignment.Center
-        ) {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                // Sección Media
-                Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxWidth(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    var buildingClicked by remember { mutableStateOf(false) }
-                    val buildingScale by animateFloatAsState(
-                        targetValue = if (buildingClicked) 1.05f else 1f,
-                        animationSpec = tween(durationMillis = 200),
-                        finishedListener = { buildingClicked = false }
-                    )
-
                     Box(
                         modifier = Modifier
-                            .size(500.dp)
-                            .padding(16.dp)
-                            .pointerInput(currentSectionIndex) {
-                                val currentSection = sections[currentSectionIndex]
+                            .size(70.dp)
+                            .zIndex(3f),
+                        contentAlignment = Alignment.Center
+                    ) {
 
-                                awaitEachGesture {
-                                    val down = awaitFirstDown()
-                                    var isDrag = false
-                                    var dragDistance = 0f
-                                    var isGestureHandled = false
+                        // Nivel
+                        val levelIconRes = when (section.color) {
+                            "azul" -> R.drawable.ic_nivel_azul
+                            "lima" -> R.drawable.ic_nivel_lima
+                            "naranja" -> R.drawable.ic_nivel_naranja
+                            "verde" -> R.drawable.ic_nivel_verde
+                            else -> R.drawable.ic_nivel_azul
+                        }
+                        Box(
+                            modifier = Modifier
+                                .size(28.dp)
+                                .align(Alignment.Center)
+                                .offset(y = 11.5.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Image(
+                                painter = painterResource(id = levelIconRes),
+                                contentDescription = "Icono de nivel",
+                                modifier = Modifier.fillMaxSize(),
+                                contentScale = ContentScale.Fit
+                            )
+                            Text(
+                                text = "${userState.nivel}",  // <- Nivel
+                                color = Color.White,
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                    }
+                }
 
-                                    val dragThreshold = 50f
+                // --- Barra de experiencia ---
+                val expBarRes = when (section.color) {
+                    "azul" -> R.drawable.ic_bar_azul
+                    "lima" -> R.drawable.ic_bar_lima
+                    "naranja" -> R.drawable.ic_bar_naranja
+                    "verde" -> R.drawable.ic_bar_verde
+                    else -> R.drawable.ic_bar_azul
+                }
 
-                                    while (true) {
-                                        val event = awaitPointerEvent()
-                                        val drag = event.changes.firstOrNull()
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth(0.7f)
+                        .height(32.dp)
+                        .align(Alignment.BottomStart)
+                        .offset(x = 80.dp, y = (-30).dp)
+                        .zIndex(1f)
+                ) {
+                    // Fondo de la barra
+                    Image(
+                        painter = painterResource(id = expBarRes),
+                        contentDescription = "Barra de experiencia",
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .zIndex(0f),
+                        contentScale = ContentScale.FillBounds
+                    )
 
-                                        if (drag != null && drag.pressed) {
-                                            dragDistance = drag.position.x - down.position.x
-                                            if (abs(dragDistance) > 10f) {
-                                                isDrag = true
-                                            }
-                                        } else {
-                                            if (!isGestureHandled) {
-                                                isGestureHandled = true
+                    // Progreso
+                    Box(
+                        modifier = Modifier
+                            .offset(y = 4.dp, x = 5.2.dp)
+                            .clip(RoundedCornerShape(
+                                topEnd = 8.dp,
+                                bottomEnd = 8.dp,
+                                topStart = 8.dp,
+                                bottomStart = 8.dp
+                            ))
+                            .padding(end = 12.dp)
+                            .fillMaxWidth(userState.levelProgress)
+                            .height(18.9.dp)
+                            .zIndex(1f)
+                            .background(section.progressColor)
 
-                                                if (isDrag && abs(dragDistance) > dragThreshold) {
-                                                    if (dragDistance > 0) {
-                                                        userViewModel.setCurrentSection((currentSectionIndex - 1 + sections.size) % sections.size)
-                                                    } else {
-                                                        userViewModel.setCurrentSection((currentSectionIndex + 1) % sections.size)
-                                                    }
-                                                } else if (!isDrag) {
-                                                    buildingClicked = true
-                                                    Log.d("Building", "Tap en ${currentSection.name}")
+                    )
+
+                    Text(
+                        text = "${userState.expInCurrentLevel} / ${userState.expNeededToNextLevel} XP",
+                        color = Color(0xFF636363),
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .align(Alignment.CenterEnd)
+                            .zIndex(3f)
+                            .offset(y = (-2.8).dp, x = (-20).dp)
+                    )
+                }
+
+                // --- Nickname y Dinero ---
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(0.7f)
+                        .align(Alignment.BottomStart)
+                        .offset(x = 88.dp, y = (-68).dp) // Justo encima de la barra
+                        .zIndex(3f),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    AppTypography.ItimStroke(
+                        text = userState.userData.nickname,   // <- Nickname
+                        strokeColor = Color.White,
+                        fillColor = Color.White,
+                        fontSize = 22.sp,
+                        textAlign = TextAlign.Start,
+                        lineHeight = 1.sp,
+                        letterSpacing = 1.sp
+                    )
+
+
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.padding(end = 20.dp)
+                    ) {
+                        Text(
+                            text = "${userState.userData.dinero}", // Dinero actual
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_coin),
+                            contentDescription = "Moneda",
+                            modifier = Modifier.size(22.dp)
+                        )
+                    }
+                }
+
+            }
+
+
+            // Contenido principal (sección media + puntuación)
+            Box(
+                modifier = Modifier.weight(1f),
+                contentAlignment = Alignment.Center
+            ) {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    // Sección Media
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxWidth(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        var buildingClicked by remember { mutableStateOf(false) }
+                        val buildingScale by animateFloatAsState(
+                            targetValue = if (buildingClicked) 1.05f else 1f,
+                            animationSpec = tween(durationMillis = 200),
+                            finishedListener = { buildingClicked = false }
+                        )
+
+                        Box(
+                            modifier = Modifier
+                                .size(500.dp)
+                                .padding(16.dp)
+                                .pointerInput(currentSectionIndex) {
+                                    val currentSection = sections[currentSectionIndex]
+
+                                    awaitEachGesture {
+                                        val down = awaitFirstDown()
+                                        var isDrag = false
+                                        var dragDistance = 0f
+                                        var isGestureHandled = false
+
+                                        val dragThreshold = 50f
+
+                                        while (true) {
+                                            val event = awaitPointerEvent()
+                                            val drag = event.changes.firstOrNull()
+
+                                            if (drag != null && drag.pressed) {
+                                                dragDistance = drag.position.x - down.position.x
+                                                if (abs(dragDistance) > 10f) {
+                                                    isDrag = true
                                                 }
+                                            } else {
+                                                if (!isGestureHandled) {
+                                                    isGestureHandled = true
+
+                                                    if (isDrag && abs(dragDistance) > dragThreshold) {
+                                                        if (dragDistance > 0) {
+                                                            userViewModel.setCurrentSection((currentSectionIndex - 1 + sections.size) % sections.size)
+                                                        } else {
+                                                            userViewModel.setCurrentSection((currentSectionIndex + 1) % sections.size)
+                                                        }
+                                                    } else if (!isDrag) {
+                                                        buildingClicked = true
+                                                        Log.d("Building", "Tap en ${currentSection.name}")
+                                                    }
+                                                }
+                                                break
                                             }
-                                            break
                                         }
                                     }
                                 }
+                        ) {
+                            Image(
+                                painter = painterResource(id = section.buildingImage),
+                                contentDescription = "Edificio de ${section.name}",
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .scale(buildingScale)
+                                    .offset(y = section.offsetY),
+                                contentScale = ContentScale.Fit
+                            )
+
+                            // Flecha izquierda
+                            var leftArrowClicked by remember { mutableStateOf(false) }
+                            val interactionSource2 = remember { MutableInteractionSource() }
+                            val leftArrowScale by animateFloatAsState(
+                                targetValue = if (leftArrowClicked) 1.2f else 1f,
+                                animationSpec = tween(durationMillis = 200),
+                                finishedListener = { leftArrowClicked = false }
+                            )
+                            Box(
+                                modifier = Modifier
+                                    .size(40.dp)
+                                    .padding(bottom = 10.dp, start = 10.dp)
+                                    .align(Alignment.BottomStart)
+                                    .clickable (
+                                        interactionSource = interactionSource2,
+                                        indication = null // <-- esto elimina el sombreado
+                                    ) {
+                                        leftArrowClicked = true
+                                        userViewModel.setCurrentSection((currentSectionIndex - 1 + sections.size) % sections.size)
+                                    }
+                            ) {
+                                Image(
+                                    painter = painterResource(id = section.leftArrowIcon),
+                                    contentDescription = "Flecha izquierda",
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .scale(leftArrowScale),
+                                    contentScale = ContentScale.Fit
+                                )
                             }
-                    ) {
-                        Image(
-                            painter = painterResource(id = section.buildingImage),
-                            contentDescription = "Edificio de ${section.name}",
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .scale(buildingScale),
-                            contentScale = ContentScale.Fit
-                        )
 
-                        // Flecha izquierda
-                        var leftArrowClicked by remember { mutableStateOf(false) }
-                        val interactionSource2 = remember { MutableInteractionSource() }
-                        val leftArrowScale by animateFloatAsState(
-                            targetValue = if (leftArrowClicked) 1.2f else 1f,
-                            animationSpec = tween(durationMillis = 200),
-                            finishedListener = { leftArrowClicked = false }
-                        )
-                        Box(
-                            modifier = Modifier
-                                .size(40.dp)
-                                .padding(bottom = 10.dp, start = 10.dp)
-                                .align(Alignment.BottomStart)
-                                .clickable (
-                                    interactionSource = interactionSource2,
-                                    indication = null // <-- esto elimina el sombreado
-                                ) {
-                                    leftArrowClicked = true
-                                    userViewModel.setCurrentSection((currentSectionIndex - 1 + sections.size) % sections.size)
-                                }
-                        ) {
+                            // Texto Seccion
                             Image(
-                                painter = painterResource(id = section.leftArrowIcon),
-                                contentDescription = "Flecha izquierda",
+                                painter = painterResource(id = section.textImage),
+                                contentDescription = "Texto de ${section.name}",
                                 modifier = Modifier
-                                    .fillMaxSize()
-                                    .scale(leftArrowScale),
+                                    .align(Alignment.BottomCenter)
+                                    .padding(bottom = section.textBottomPadding)
+                                    .size(width = 300.dp, height = section.textHeight),
                                 contentScale = ContentScale.Fit
+                            )
+
+
+                            // Flecha derecha
+                            var rightArrowClicked by remember { mutableStateOf(false) }
+                            val interactionSource = remember { MutableInteractionSource() }
+                            val rightArrowScale by animateFloatAsState(
+                                targetValue = if (rightArrowClicked) 1.2f else 1f,
+                                animationSpec = tween(durationMillis = 200),
+                                finishedListener = { rightArrowClicked = false }
+                            )
+                            Box(
+                                modifier = Modifier
+                                    .size(40.dp)
+                                    .padding(bottom = 10.dp, end = 10.dp)
+                                    .align(Alignment.BottomEnd)
+                                    .clickable (
+                                        interactionSource = interactionSource,
+                                        indication = null // <-- esto elimina el sombreado
+                                    ) {
+                                        rightArrowClicked = true
+                                        userViewModel.setCurrentSection((currentSectionIndex + 1) % sections.size)
+                                    }
+                            ) {
+                                Image(
+                                    painter = painterResource(id = section.rightArrowIcon),
+                                    contentDescription = "Flecha derecha",
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .scale(rightArrowScale),
+                                    contentScale = ContentScale.Fit
+                                )
+                            }
+                        }
+                    }
+
+                    // Boton jugar y Puntuacion
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier.padding(bottom = 20.dp)
+                    ) {
+                        // Puntuación y estrella
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.padding(bottom = 10.dp)
+                        ) {
+
+                            // Puntuacion
+                            Text(
+                                text = "$sectionScore",
+                                color = Color.White,
+                                fontSize = 24.sp,
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier.padding(end = 8.dp).offset(y = 2.dp)
+                            )
+
+                            Image(
+                                painter = painterResource(id = section.starIcon),
+                                contentDescription = "Estrella",
+                                modifier = Modifier.size(30.dp)
                             )
                         }
 
-                        // Texto Seccion
+                        // Botón de jugar
+                        var playButtonClicked by remember { mutableStateOf(false) }
+                        val playButtonScale by animateFloatAsState(
+                            targetValue = if (playButtonClicked) 1.1f else 1f,
+                            animationSpec = tween(durationMillis = 200),
+                            finishedListener = { playButtonClicked = false }
+                        )
+
                         Image(
-                            painter = painterResource(id = section.textImage),
-                            contentDescription = "Texto de ${section.name}",
+                            painter = painterResource(id = section.playButtonIcon),
+                            contentDescription = "Jugar",
                             modifier = Modifier
-                                .align(Alignment.BottomCenter)
-                                .padding(bottom = section.textBottomPadding)
-                                .size(width = 300.dp, height = section.textHeight),
+                                .scale(playButtonScale)
+                                .clickable {
+                                    playButtonClicked = true
+                                    val categoryId = when(section.name) {
+                                        "agua" -> "agua"
+                                        "biologia" -> "biologia"
+                                        "tierra" -> "tierra"
+                                        "reciclaje" -> "reciclaje"
+                                        else -> "agua"
+                                    }
+                                    navigateToLesson(navController, categoryId)
+                                },
                             contentScale = ContentScale.Fit
                         )
-
-
-                        // Flecha derecha
-                        var rightArrowClicked by remember { mutableStateOf(false) }
-                        val interactionSource = remember { MutableInteractionSource() }
-                        val rightArrowScale by animateFloatAsState(
-                            targetValue = if (rightArrowClicked) 1.2f else 1f,
-                            animationSpec = tween(durationMillis = 200),
-                            finishedListener = { rightArrowClicked = false }
-                        )
-                        Box(
-                            modifier = Modifier
-                                .size(40.dp)
-                                .padding(bottom = 10.dp, end = 10.dp)
-                                .align(Alignment.BottomEnd)
-                                .clickable (
-                                    interactionSource = interactionSource,
-                                    indication = null // <-- esto elimina el sombreado
-                                ) {
-                                    rightArrowClicked = true
-                                    userViewModel.setCurrentSection((currentSectionIndex + 1) % sections.size)
-                                }
-                        ) {
-                            Image(
-                                painter = painterResource(id = section.rightArrowIcon),
-                                contentDescription = "Flecha derecha",
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .scale(rightArrowScale),
-                                contentScale = ContentScale.Fit
-                            )
-                        }
                     }
-                }
-
-                // Boton jugar y Puntuacion
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.padding(bottom = 20.dp)
-                ) {
-                    // Puntuación y estrella
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.padding(bottom = 10.dp)
-                    ) {
-
-                        // Puntuacion
-                        Text(
-                            text = "$sectionScore",
-                            color = Color.White,
-                            fontSize = 24.sp,
-                            fontWeight = FontWeight.Bold,
-                            modifier = Modifier.padding(end = 8.dp).offset(y = 2.dp)
-                        )
-
-                        Image(
-                            painter = painterResource(id = section.starIcon),
-                            contentDescription = "Estrella",
-                            modifier = Modifier.size(30.dp)
-                        )
-                    }
-
-                    // Botón de jugar
-                    var playButtonClicked by remember { mutableStateOf(false) }
-                    val playButtonScale by animateFloatAsState(
-                        targetValue = if (playButtonClicked) 1.1f else 1f,
-                        animationSpec = tween(durationMillis = 200),
-                        finishedListener = { playButtonClicked = false }
-                    )
-
-                    Image(
-                        painter = painterResource(id = section.playButtonIcon),
-                        contentDescription = "Jugar",
-                        modifier = Modifier
-                            .scale(playButtonScale)
-                            .clickable {
-                                playButtonClicked = true
-                                val categoryId = when(section.name) {
-                                    "agua" -> "agua"
-                                    "biologia" -> "biologia"
-                                    "tierra" -> "tierra"
-                                    "reciclaje" -> "reciclaje"
-                                    else -> "agua"
-                                }
-                                navigateToLesson(navController, categoryId)
-                            },
-                        contentScale = ContentScale.Fit
-                    )
                 }
             }
+
+            // Bottom Menu
+            BottomMenu(
+                isHomeSection = true,
+                sectionColor = section.color,
+                menuBackgroundColor = section.menuBackgroundColor,
+                selectedItem = selectedItem,
+                onItemSelected = { item ->
+                    selectedItem = item
+                    navigateToScreen(navController, item)
+                }
+            )
+
+            Spacer(modifier = Modifier.height(10.dp))
         }
-
-        // Bottom Menu
-        BottomMenu(
-            isHomeSection = true,
-            sectionColor = section.color,
-            menuBackgroundColor = section.menuBackgroundColor,
-            selectedItem = selectedItem,
-            onItemSelected = { item ->
-                selectedItem = item
-                navigateToScreen(navController, item)
-            }
-        )
-
-        Spacer(modifier = Modifier.height(10.dp))
     }
+
 }
 
 data class Section(
     val name: String,
-    val backgroundColor: Color,
+    val background: Int,
     val menuBackgroundColor: Color,
     val progressColor: Color,
     val color: String,
@@ -558,6 +577,7 @@ data class Section(
     val leftArrowIcon: Int,
     val rightArrowIcon: Int,
     val playButtonIcon: Int,
-    val starIcon: Int
+    val starIcon: Int,
+    val offsetY: Dp
 )
 
