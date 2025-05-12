@@ -1,4 +1,4 @@
-package com.universidad.finankids.ui.lesson.activities
+package com.universidad.ambientalkids.ui.lesson.activities
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
